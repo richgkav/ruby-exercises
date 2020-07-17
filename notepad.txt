@@ -1,0 +1,66 @@
+
+
+
+
+
+
+
+"testingtest".scan("test") returns ["test","test"]
+________________________________________________________________________________
+
+Old Code Bits
+________________________________________________________________________________
+
+# First version of substring.rb before reading about "string".scan(word) method
+
+dictionary = [
+	"below","down","go","going","horn","how","howdy",
+	"it","i","low","own","part","partner","sit"
+]
+
+# hash - if key exists adds 1 to value else creates key
+
+def add_key(key, output)
+	if output.has_key?(key) 
+		output[key] += 1;
+	else
+		output[key] = 1;
+	end
+end
+
+def substrings(word, dictionary)
+
+	output = {}
+	wordstore = word
+
+	dictionary.each do | dict_word |
+
+		found = true
+
+		while (found)
+
+			index = word.index(dict_word)
+			
+			if (index)
+				add_key(dict_word, output)
+				chrs_to_remove = index + dict_word.length
+				word = word[chrs_to_remove..-1]
+			else
+				found = false
+			end
+
+		end
+		word = wordstore
+	end
+	puts output
+	output
+end
+
+# needs to return a hash where the values are th qty the word is found
+substrings("below", dictionary)
+# => { "below" => 1, "low" => 1 }
+
+substrings("Howdy partner, sit down! How's it going?", dictionary)
+# => { "down" => 1, "how" => 2, "howdy" => 1,"go" => 1, "going" => 1, "it" => 2, "i" => 3, "own" => 1,"part" => 1,"partner" => 1,"sit" => 1 }
+________________________________________________________________________________
+
